@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """Freeze + near-silence video cutter engine."""
 
-APP_VERSION = "1.0"
-
 from __future__ import annotations
 
 import hashlib
@@ -18,6 +16,7 @@ from typing import Callable
 
 import numpy as np
 
+APP_VERSION = "1.0"
 RMS_WINDOW = 0.10
 AUDIO_SR = 48000
 

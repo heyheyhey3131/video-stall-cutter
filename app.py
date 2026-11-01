@@ -15,7 +15,26 @@ APP_DIR = Path(__file__).resolve().parent
 if str(APP_DIR) not in sys.path:
     sys.path.insert(0, str(APP_DIR))
 
-from engine import APP_VERSION, CutParams, CutResult, StallCutter, find_ffmpeg, fmt_ts
+
+def _show_startup_error(text: str) -> None:
+    log = APP_DIR / "startup_error.log"
+    try:
+        log.write_text(text, encoding="utf-8")
+    except OSError:
+        pass
+    try:
+        import ctypes
+
+        ctypes.windll.user32.MessageBoxW(0, text[-2000:], "卡顿静音裁剪器启动失败", 0x10)
+    except Exception:
+        pass
+
+
+try:
+    from engine import APP_VERSION, CutParams, CutResult, StallCutter, find_ffmpeg, fmt_ts
+except Exception:
+    _show_startup_error(traceback.format_exc())
+    raise
 
 LEVEL_NAMES = {
     1: "最严",
@@ -649,4 +668,8 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception:
+        _show_startup_error(traceback.format_exc())
+        raise
