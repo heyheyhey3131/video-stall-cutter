@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.mp4
+*.s16le
+*.log
+.stall_cut_cache/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
